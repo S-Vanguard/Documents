@@ -104,7 +104,7 @@ wbook.save("./StarWars.xlsx")       # 保存xlsx文件
 
 到这里还没结束，在学习BoltDB的过程中，了解到BoltDB数据库最大的特点是它采用键值对的方式来存储数据，为了让另一位同学更好地读入数据，我决定将第一列的信息类型去掉，输出设置成第一列是序号，第二列是json数据，这样更符合BoltDB的存储格式。
 
-这下爬取数据的工作算是彻底完成了，接下来就是帮助完成数据库的构建，详情就看[另一个个人文档](https://github.com/Xiongzj5)啦。  
+这下爬取数据的工作算是彻底完成了，接下来就是帮助完成数据库的构建，详情就看[另一个个人文档](https://github.com/S-Vanguard/Documents/blob/master/Summary/Summary_XiongZJ/%E6%9C%8D%E5%8A%A1%E8%AE%A1%E7%AE%97%E4%B9%8BboltDB%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93.md)啦。  
 
 ---
 
