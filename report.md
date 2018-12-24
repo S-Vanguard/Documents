@@ -176,12 +176,12 @@ COPY starWar.sql $WORK_PATH/
 COPY setup.sh $AUTO_RUN_DIR/
 
 #给执行文件增加可执行权限
-RUN chmod a+x $AUTO_RUN_DIR/setup.sh
+RUN bash $AUTO_RUN_DIR/setup.sh
 ```
 数据库docker的部署比前面两个稍微复制一些。数据库docker使用的是MySQL数据库，其中部署的时候需要配置一些环境参数，如MySQL登陆密码，WORK_PATH目录等。最后运行一个setup的脚本文件开启MySQL服务器。  
 setup.sh文件如下
 ```bash
-mysql -uroot -p$MYSQL_ROOT_PASSWORD <<EOF
+mysql -uroot -p$MYSQL_ROOT_PASSWORD &
 source $WORK_PATH/starWar.sql;
 service start mysql
 ```
