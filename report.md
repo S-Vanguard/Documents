@@ -112,7 +112,7 @@ u2 ping u1
 - 静态文件服务器：负责前端网页部分的传输
 - 后端服务器：处理查询请求
 - 数据库服务器：保存后端数据
-## 将静态文件服务器部署上docker
+## 创建静态文件服务器docker
 dockerfile文件
 ```
 FROM node:8
@@ -131,7 +131,7 @@ CMD ["node", "bin/index.js", "8888", "http://192.168.134.129:8080"]
 ```
 这个容器是一个继承自node:8的容器，然后在容器内创建一个```/home/swapi```的文件夹，并把工作区转移到这里。接下来，我们使用```COPY```命令把前端文件从本机拷贝到docker内。  
 这些安装工作完成后，```EXPOSE 8888```命令把容器的8888对外暴露出来，提供访问服务。最后一句```CMD```语句的作用是在docker内运行一个node服务器，提供静态文件服务器。
-## 将后端服务器部署上docker
+## 创建后端服务器docker
 ```
 # Use an official Golang runtime as a parent image
 FROM golang:latest
@@ -154,8 +154,10 @@ EXPOSE 8080
 
 CMD server run
 ```
-后端的部署与静态文件部署类似，但有一点不同的是，静态文件服务器继承的是node容器，后端容器继承的是golang的容器。布置的过程类似，同样是按照新建文件夹，复制文件，构建文件，暴露端口，运行服务器的顺序进行。
-## 将数据库部署上docker
+后端的部署与静态文件部署类似，但有一点不同的是，静态文件服务器继承的是node容器，后端容器继承的是golang的容器。布置的过程类似，同样是按照新建文件夹，复制文件，构建文件，暴露端口，运行服务器的顺序进行。  
+部署过程：  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181224101452204.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yZml2ZTU1NQ==,size_16,color_FFFFFF,t_70)
+## 创建数据库docker
 ```
 FROM mysql:5.7.21
 
@@ -183,3 +185,15 @@ mysql -uroot -p$MYSQL_ROOT_PASSWORD <<EOF
 source $WORK_PATH/starWar.sql;
 service start mysql
 ```
+## 自动编排docker
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181224102555802.png)
+## 部署结果
+制备好上面三个部分的docker  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181224102509639.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yZml2ZTU1NQ==,size_16,color_FFFFFF,t_70)  
+服务都已开启  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181224101903639.png)  
+
+在外部访问网页  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181224102538789.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yZml2ZTU1NQ==,size_16,color_FFFFFF,t_70)   
+进行api查询  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181224103428489.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yZml2ZTU1NQ==,size_16,color_FFFFFF,t_70)   
